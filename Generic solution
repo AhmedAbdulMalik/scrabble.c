@@ -57,7 +57,7 @@ int main(void)
 
     else
     {
-        printf("ERROR\n");
+        printf("This line of Code is impossible to execute :) \n");
     }
 }
 
