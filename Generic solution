@@ -1,0 +1,94 @@
+#include <ctype.h>
+#include <stdio.h>
+#include <string.h>
+
+const int calscore[] = {1, 3, 3, 2,  1, 4, 2, 4, 1, 8, 5, 1, 3,
+                        1, 1, 3, 10, 1, 1, 1, 1, 4, 4, 8, 4, 10};
+
+int wordValue(char word[], int len);
+
+char *stringlower(char string[], int len);
+
+int main(void)
+{
+
+    char word1[64];
+    char word2[64];
+    int score1;
+    int score2;
+
+    // memory safe method for getting char[]
+
+    printf("Player 1:\n");
+
+    fgets(word1, sizeof(word1), stdin);
+
+    printf("Player 2:\n");
+
+    fgets(word2, sizeof(word2), stdin);
+
+    word1[strcspn(word1, "\n")] = '\0';
+    word2[strcspn(word2, "\n")] = '\0';
+
+    int len1 = strlen(word1);
+    int len2 = strlen(word2);
+
+    stringlower(word1, len1);
+    stringlower(word2, len2);
+
+    score1 = wordValue(word1, len1);
+    score2 = wordValue(word2, len2);
+
+
+    if (score1 == score2)
+    {
+        printf("Tie!\n");
+    }
+
+    else if (score1 > score2)
+    {
+        printf("Player 1 wins!\n");
+    }
+
+    else if (score2 > score1)
+    {
+        printf("Player 2 wins!\n");
+    }
+
+    else
+    {
+        printf("ERROR\n");
+    }
+}
+
+char *stringlower(char string[], int len)
+{
+
+    for (int i = 0; len > i; i++)
+    {
+        // tolower(string[i]);
+        string[i] = tolower(string[i]);
+    }
+    return string;
+}
+
+int wordValue(char word[], int len)
+{
+    int sumscore = 0;
+    // int temp = 0;
+    int index;
+
+    for (int i = 0; len > i; i++)
+    {
+        char ch = word[i];
+        if (ch >= 'a' && ch <= 'z')
+        {
+
+            index = (ch - 'a');
+
+            sumscore += calscore[index];
+        }
+    }
+    printf("%i\n", sumscore);
+    return sumscore;
+}
